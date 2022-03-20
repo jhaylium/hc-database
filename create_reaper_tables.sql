@@ -227,19 +227,46 @@ where state = 'MI'
 group by rp.zip_code, beds,city,state;
 
 create table reaper.historical_property_taxes_stg(
-    realtor_property_id int,
-    inventory_property_id int,
-    tax_paid int,
-    assessments int,
-    dt_year int
+    property_id int,
+    year varchar(5),
+    taxes varchar(20),
+    land_tax varchar(20),
+    additions_tax varchar(20),
+    total_assessment varchar(20)
 );
 
 create table reaper.historical_price_events_stg(
-    realtor_property_id int,
-    inventory_property_id int,
-    event_type varchar(100),
+    property_id int,
+    event_date varchar(20),
+    event_type varchar(20),
+    price varchar(255),
+    price_per_sqft varchar(255),
+    source varchar(255)
+);
+
+create table reaper.historical_property_taxes(
+    property_id int,
+    year varchar(5),
+    taxes int,
+    land_tax int,
+    additions_tax int,
+    total_assessment int,
+    dt_insert timestamp with time zone default now()
+);
+
+create table reaper.historical_price_events(
+    property_id int,
+    event_date date,
+    event_type varchar(20),
     price int,
     price_per_sqft int,
-    source varchar(100)
+    source varchar(255),
+    dt_insert timestamp with time zone default now()
+);
+
+
+create table reaper.realtor_purchase_units_stg(
+    id int,
+    units varchar(4)
 );
 

@@ -45,3 +45,9 @@ from reaper.realtor_purchase_property
 group by zip_code, city, state
 order by city, state;
 
+-- update realtor_purchase_property units
+update reaper.realtor_purchase_property pp
+set units = pu.units::int
+from reaper.realtor_purchase_units_stg pu
+where pp.property_id = pu.id;
+
